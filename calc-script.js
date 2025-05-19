@@ -1,6 +1,34 @@
 let runButtons = Array.from(document.getElementsByClassName("run-button"));
 let calcInputs = Array.from(document.getElementsByClassName("calc-input"));
 
+addEvents();
+
+function addEvents(){
+    for(buttons of runButtons){
+        buttons.addEventListener("click", run);
+    }
+}
+
+function run(){
+    outPutValue = eval(calcInputs[calcInputs.findIndex(input => input == this.nextElementSibling)].value);
+
+    let outPutText = document.createElement("label");
+    outPutText.textContent = "// Output: " + eval(outPutValue);
+    let newExpression = document.createElement("label");
+    newExpression.innerHTML = "// New Expression: " + " <button class='run-button'>Run</button><input type='text' placeholder='Type here...' class='calc-input'>";
+
+    document.body.appendChild(outPutText);
+    document.body.appendChild(newExpression);
+
+    runButtons = Array.from(document.getElementsByClassName("run-button"));
+    calcInputs = Array.from(document.getElementsByClassName("calc-input"));
+
+    addEvents();
+}
+
+let outPutValue = 0;
+
+
 //number functions
 function num(number, operator){
     if(operator == null){
@@ -85,6 +113,10 @@ function allToRoot(rootValue, expression){
     return String(Math.pow(eval(expression), 1/rootValue));
 }
 
+function outPut(){
+    return String(outPutValue);
+}
+
 
 
 //operators
@@ -99,6 +131,6 @@ function minus(number){
 function dividedBy(number){
     return "/" + String(number);
 }
-function multipliedBy(number){
+function times(number){
     return "*" + String(number);
 }

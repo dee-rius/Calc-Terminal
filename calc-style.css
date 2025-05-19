@@ -1,14 +1,28 @@
+body{
+    display: flex;
+    flex-direction: column;
 
+    max-width: 100vw;
+}
 
 input{
     outline: none;
     background-color: transparent;
     border-style: none;
+    field-sizing: content;
+    resize: none;
+
+    padding: 0;
+    margin: 0;
+
+    max-width: 50vw;
 }
 
 button{
     background-color: transparent;
     border-style: none;
+
+    cursor: pointer;
 }
 button::before{
     content: "[ ";
