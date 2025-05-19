@@ -1,0 +1,18 @@
+
+
+input{
+    outline: none;
+    background-color: transparent;
+    border-style: none;
+}
+
+button{
+    background-color: transparent;
+    border-style: none;
+}
+button::before{
+    content: "[ ";
+}
+button::after{
+    content: " ]";
+}
