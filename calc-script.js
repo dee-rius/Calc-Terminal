@@ -1,6 +1,8 @@
 let runButtons = Array.from(document.getElementsByClassName("run-button"));
 let calcInputs = Array.from(document.getElementsByClassName("calc-input"));
 
+let outputValue = 0;
+
 addEvents();
 
 function addEvents(){
@@ -10,14 +12,23 @@ function addEvents(){
 }
 
 function run(){
-    outPutValue = eval(calcInputs[calcInputs.findIndex(input => input == this.nextElementSibling)].value);
+    let nextInput = this.nextElementSibling;
 
-    let outPutText = document.createElement("label");
-    outPutText.textContent = "// Output: " + eval(outPutValue);
+    let outputText = document.createElement("label");
     let newExpression = document.createElement("label");
-    newExpression.innerHTML = "// New Expression: " + " <button class='run-button'>Run</button><input type='text' placeholder='Type here...' class='calc-input'>";
+    newExpression.innerHTML = "// New Expression: " + " <button class='run-button'>Run</button><input spellcheck='false' type='text' placeholder='Type here...' class='calc-input'>";
+    
+    //the isNaN part is to make sure the user can't just enter only numbers
+    if(nextInput.value == "" || isNaN(parseInt(nextInput.value)) == false){
+        outputText.textContent = "// Output: error";
+    }
+    else{
+        outputValue = eval(nextInput.value);
+        outputText.textContent = "// Output: " + eval(outputValue);
+    }
+    
 
-    document.body.appendChild(outPutText);
+    document.body.appendChild(outputText);
     document.body.appendChild(newExpression);
 
     runButtons = Array.from(document.getElementsByClassName("run-button"));
@@ -25,8 +36,6 @@ function run(){
 
     addEvents();
 }
-
-let outPutValue = 0;
 
 
 //number functions
@@ -113,8 +122,8 @@ function allToRoot(rootValue, expression){
     return String(Math.pow(eval(expression), 1/rootValue));
 }
 
-function outPut(){
-    return String(outPutValue);
+function output(){
+    return String(outputValue);
 }
 
 
@@ -123,14 +132,24 @@ function outPut(){
 function add(number){
     return "+" + String(number);
 }
+function plus(number){
+    return "+" + String(number);
+}
 
 function minus(number){
+    return "-" + String(number);
+}
+function subtract(number){
     return "-" + String(number);
 }
 
 function dividedBy(number){
     return "/" + String(number);
 }
+
 function times(number){
+    return "*" + String(number);
+}
+function multipliedBy(number){
     return "*" + String(number);
 }
