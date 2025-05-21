@@ -1,18 +1,55 @@
+const calcTerminalContainer = document.getElementById("calc-teminal-container");
 let runButtons = Array.from(document.getElementsByClassName("run-button"));
 let calcInputs = Array.from(document.getElementsByClassName("calc-input"));
 
 let outputValue = 0;
 
+const numFunctions = [
+    "num(number, operator)",
+    "numSquared(number, operator)",
+    "numCubed(number, operator)",
+    "numToIndex(number, index, operator)",
+    "numSquareRoot(number, operator)",
+    "numCubeRoot(number, operator)",
+    "numToRoot(number, rootValue, operator)"
+]
+
+const operatorFunctions = [
+    "add(number)",
+    "plus(number)",
+    "minus(number)",
+    "subtract(number)",
+    "dividedBy(number)",
+    "times(number)",
+    "multipliedBy(number)"
+]
+
+const indexFunctions = [
+    "squareAll(expression)",
+    "cubeAll(expression)",
+    "allToIndex(index, expression)",
+    "squareRootAll(expression)",
+    "cubeRootAll(expression)",
+    "allToRoot(rootValue, expression)"
+]
+
+const otherFunctions = [
+    "output()"
+]
+
+const prohibitedCharacters = ["/", "*", "+", "-", "^", "%"];
+
 addEvents();
 
 function addEvents(){
-    for(buttons of runButtons){
-        buttons.addEventListener("click", run);
+    for(let runButton of runButtons){
+        runButton.addEventListener("click", () => {if(runButton.nextElementSibling.value != ""){run(runButton)}});
     }
 }
 
-function run(){
-    let nextInput = this.nextElementSibling;
+function run(button){
+    let nextInput = button.nextElementSibling;
+    nextInput.value = nextInput.value.split("").filter(char => prohibitedCharacters.includes(char) == false).join("");
 
     let outputText = document.createElement("label");
     let newExpression = document.createElement("label");
@@ -20,16 +57,51 @@ function run(){
     
     //the isNaN part is to make sure the user can't just enter only numbers
     if(nextInput.value == "" || isNaN(parseInt(nextInput.value)) == false){
-        outputText.textContent = "// Output: error";
+        outputText.innerHTML = "// Output: <span>error</span>";
     }
     else{
-        outputValue = eval(nextInput.value);
-        outputText.textContent = "// Output: " + eval(outputValue);
+        if(nextInput.value.includes("manual")){
+            let splitInput = nextInput.value.toLowerCase().split(" ");
+            //first if statement is to make sure the first word is manual
+            if(splitInput[0] != "manual"){
+                outputText.innerHTML = "// Output: <span>error</span>";
+            }
+            else if(splitInput[1] == "number" || splitInput[1] == "num"){
+                outputText.innerHTML = "// Output: " + "<span>" + numFunctions.join("<br/>") + "</span>";
+            }
+            else if(splitInput[1] == "operator"){
+                outputText.innerHTML = "// Output: " + "<span>" + operatorFunctions.join("<br/>") + "</span>";
+            }
+            else if(splitInput[1] == "index" || splitInput[1] == "root"){
+                outputText.innerHTML = "// Output: " + "<span>" + indexFunctions.join("<br/>") + "</span>";
+            }
+            else if(splitInput[1] == "other"){
+                outputText.innerHTML = "// Output: " + "<span>" + otherFunctions.join("<br/>") + "</span>";
+            }
+            else{
+                outputText.innerHTML = "// Output: <span>error</span>";
+            }
+
+            calcTerminalContainer.appendChild(outputText);
+        }
+        else if(nextInput.value == "clear"){
+            calcTerminalContainer.innerHTML = "";
+        }
+        else{
+            if(nextInput.value.split("").filter(char => char == "(").length != nextInput.value.split("").filter(char => char == ")").length){
+                outputText.innerHTML = "// Output: <span>error</span>";
+            }
+            else{
+                //removes the space between the numbers to avoid an instance where num(3 * 6) would return an error because it was changed to num(3 6) instead of num(36)
+                outputValue = eval(nextInput.value.split("").filter(char => char != " ").join(""));
+                outputText.innerHTML = "// Output: " + "<span>" + outputValue + "</span>";
+            }
+            
+            calcTerminalContainer.appendChild(outputText);
+        }
     }
     
-
-    document.body.appendChild(outputText);
-    document.body.appendChild(newExpression);
+    calcTerminalContainer.appendChild(newExpression);
 
     runButtons = Array.from(document.getElementsByClassName("run-button"));
     calcInputs = Array.from(document.getElementsByClassName("calc-input"));
@@ -41,115 +113,115 @@ function run(){
 //number functions
 function num(number, operator){
     if(operator == null){
-        return String(number);
+        return number;
     }
     else{
-        return String(number + operator);
+        return eval(number + operator);
     }
 }
 
 function numSquared(number, operator){
     if(operator == null){
-        return String(Math.pow(number, 2));
+        return Math.pow(number, 2);
     }
     else{
-        return String(Math.pow(number, 2) + operator);
+        return eval(Math.pow(number, 2) + operator);
     }
 }
 
 function numCubed(number, operator){
     if(operator == null){
-        return String(Math.pow(number, 3));
+        return Math.pow(number, 3);
     }
     else{
-        return String(Math.pow(number, 3) + operator);
+        return eval(Math.pow(number, 3) + operator);
     }
 }
 
 function numToIndex(number, index, operator){
     if(operator == null){
-        return String(Math.pow(number, index));
+        return Math.pow(number, index);
     }
     else{
-        return String(Math.pow(number, index) + operator);
+        return eval(Math.pow(number, index) + operator);
     }
 }
 
 function numSquareRoot(number, operator){
     if(operator == null){
-        return String(Math.pow(number, 1/2));
+        return Math.pow(number, 1/2);
     }
     else{
-        return String(Math.pow(number, 1/2) + operator);
+        return eval(Math.pow(number, 1/2) + operator);
     }
 }
 
 function numCubeRoot(number, operator){
     if(operator == null){
-        return String(Math.pow(number, 1/3));
+        return Math.pow(number, 1/3);
     }
     else{
-        return String(Math.pow(number, 1/3) + operator);
+        return eval(Math.pow(number, 1/3) + operator);
     }
 }
 
 function numToRoot(number, rootValue, operator){
     if(operator == null){
-        return String(Math.pow(number, 1/rootValue));
+        return Math.pow(number, 1/rootValue);
     }
     else{
-        return String(Math.pow(number, 1/rootValue) + operator);
+        return eval(Math.pow(number, 1/rootValue) + operator);
     }
 }
 
 function squareAll(expression){
-    return String(Math.pow(eval(expression), 2));
+    return eval(Math.pow(eval(expression), 2));
 }
 function cubeAll(expression){
-    return String(Math.pow(eval(expression), 3));
+    return eval(Math.pow(eval(expression), 3));
 }
 function allToIndex(index, expression){
-    return String(Math.pow(eval(expression), index));
+    return eval(Math.pow(eval(expression), index));
 }
 
 function squareRootAll(expression){
-    return String(Math.pow(eval(expression), 1/2));
+    return eval(Math.pow(eval(expression), 1/2));
 }
 function cubeRootAll(expression){
-    return String(Math.pow(eval(expression), 1/3));
+    return eval(Math.pow(eval(expression), 1/3));
 }
 function allToRoot(rootValue, expression){
-    return String(Math.pow(eval(expression), 1/rootValue));
+    return eval(Math.pow(eval(expression), 1/rootValue));
 }
 
 function output(){
-    return String(outputValue);
+    return outputValue;
 }
 
 
 
 //operators
 function add(number){
-    return "+" + String(number);
+    return "+" + number;
 }
 function plus(number){
-    return "+" + String(number);
+    return "+" + number;
 }
 
 function minus(number){
-    return "-" + String(number);
+    return "-" + number;
 }
 function subtract(number){
-    return "-" + String(number);
+    return "-" + number;
 }
 
 function dividedBy(number){
-    return "/" + String(number);
+    return "/" + number;
 }
 
 function times(number){
-    return "*" + String(number);
+    return "*" + number;
 }
 function multipliedBy(number){
-    return "*" + String(number);
+    return "*" + number;
 }

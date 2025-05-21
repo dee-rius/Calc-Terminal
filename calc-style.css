@@ -1,14 +1,58 @@
+@keyframes blink{
+    0%{
+        opacity: 1;
+    }
+    50%{
+        opacity: 1;
+    }
+    51%{
+        opacity: 0; 
+    }
+    100%{
+        opacity: 0;
+    }
+}
+
+::selection{
+    background-color: var(--text-color);
+    color: var(--background-color);
+}
+
+:root{
+    --background-color: #00051C;
+    --text-color: #52DEE5;
+    --complementery-color: #FFFECB;
+    --functions-color: #FFD427;
+}
+
 body{
+    background-color: var(--background-color);
+    font-family: "Fira Code", monospace;
+    font-size: smaller;
+}
+
+p{
+    color: var(--text-color);
+}
+
+main{
     display: flex;
     flex-direction: column;
+    gap: 10px;
 
     max-width: 100vw;
 }
 
+label{
+    color: var(--text-color);
+    display: flex;
+    gap: 5px;
+}
+
 input{
     outline: none;
-    background-color: transparent;
     border-style: none;
+
     field-sizing: content;
     resize: none;
 
@@ -16,6 +60,10 @@ input{
     margin: 0;
 
     max-width: 50vw;
+
+    background-color: transparent;
+    color: var(--text-color);
+    font-family: "Fira Code", monospace;
 }
 
 button{
@@ -23,10 +71,26 @@ button{
     border-style: none;
 
     cursor: pointer;
+
+    color: var(--text-color);
+    font-family: "Fira Code", monospace;
 }
 button::before{
     content: "[ ";
+
+    animation: blink 0.5s ease 0.3s infinite normal forwards;
 }
 button::after{
     content: " ]";
+    animation: blink 0.5s ease 0.3s infinite normal forwards;
+}
+
+span{
+    color: var(--text-color);
+}
+
+#everything{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }

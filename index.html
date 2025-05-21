@@ -5,9 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calc-Terminal</title>
     <link rel="stylesheet" href="calc-style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap" rel="stylesheet">
+
 </head>
 <body>
-    <label for="calc-input">// New Expression: <button class="run-button">Run</button><input spellcheck="false" type="text" placeholder="Type here..."  class="calc-input"></textarea></label>
+    <div id="everything">
+        <header>
+            <div id="tips"> <p>Clear: type "clear"</p> <p>Available functions: type "manual " + ("num"/"operator"/"index"/"root"/"other")</p></div>
+            <hr style="border-color: var(--text-color);"/>
+        </header>
+        <main id="calc-teminal-container">
+            <label for="calc-input">// New Expression: <button class="run-button">Run</button><input spellcheck="false" type="text" placeholder="Type here..."  class="calc-input"></textarea></label>
+        </main>
+    </div>
     <script src="calc-script.js"></script>
 </body>
 </html>
