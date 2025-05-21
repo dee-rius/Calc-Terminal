@@ -48,20 +48,20 @@ function addEvents(){
 }
 
 function run(button){
-    let nextInput = button.nextElementSibling;
-    nextInput.value = nextInput.value.split("").filter(char => prohibitedCharacters.includes(char) == false).join("");
+    let calcInputValue = button.nextElementSibling.value.toLowerCase();
+    calcInputValue = calcInputValue.split("").filter(char => prohibitedCharacters.includes(char) == false).join("");
 
     let outputText = document.createElement("label");
     let newExpression = document.createElement("label");
     newExpression.innerHTML = "// New Expression: " + " <button class='run-button'>Run</button><input spellcheck='false' type='text' placeholder='Type here...' class='calc-input'>";
     
     //the isNaN part is to make sure the user can't just enter only numbers
-    if(nextInput.value == "" || isNaN(parseInt(nextInput.value)) == false){
+    if(calcInputValue == "" || isNaN(parseInt(calcInputValue)) == false){
         outputText.innerHTML = "// Output: <span>error</span>";
     }
     else{
-        if(nextInput.value.includes("manual")){
-            let splitInput = nextInput.value.toLowerCase().split(" ");
+        if(calcInputValue.includes("manual")){
+            let splitInput = calcInputValue.split(" ");
             //first if statement is to make sure the first word is manual
             if(splitInput[0] != "manual"){
                 outputText.innerHTML = "// Output: <span>error</span>";
@@ -84,16 +84,16 @@ function run(button){
 
             calcTerminalContainer.appendChild(outputText);
         }
-        else if(nextInput.value == "clear"){
+        else if(calcInputValue == "clear"){
             calcTerminalContainer.innerHTML = "";
         }
         else{
-            if(nextInput.value.split("").filter(char => char == "(").length != nextInput.value.split("").filter(char => char == ")").length){
+            if(calcInputValue.split("").filter(char => char == "(").length != calcInputValue.split("").filter(char => char == ")").length){
                 outputText.innerHTML = "// Output: <span>error</span>";
             }
             else{
                 //removes the space between the numbers to avoid an instance where num(3 * 6) would return an error because it was changed to num(3 6) instead of num(36)
-                outputValue = eval(nextInput.value.split("").filter(char => char != " ").join(""));
+                outputValue = eval(calcInputValue.split("").filter(char => char != " ").join(""));
                 outputText.innerHTML = "// Output: " + "<span>" + outputValue + "</span>";
             }
             
