@@ -11,7 +11,8 @@ const numFunctions = [
     "numToIndex(number, index, operator)",
     "numSquareRoot(number, operator)",
     "numCubeRoot(number, operator)",
-    "numToRoot(number, rootValue, operator)"
+    "numToRoot(number, rootValue, operator)",
+    "numFactorial(number, operator)"
 ]
 
 const operatorFunctions = [
@@ -25,11 +26,26 @@ const operatorFunctions = [
 ]
 
 const indexFunctions = [
+    "numSquared(number, operator)",
+    "numCubed(number, operator)",
+    "numToIndex(number, index, operator)",
+    "numSquareRoot(number, operator)",
+    "numCubeRoot(number, operator)",
+    "numToRoot(number, rootValue, operator)",
     "squareAll(expression)",
     "cubeAll(expression)",
-    "allToIndex(index, expression)",
     "squareRootAll(expression)",
     "cubeRootAll(expression)",
+    "allToIndex(index, expression)",
+    "allToRoot(rootValue, expression)"
+]
+
+const allFunctions = [
+    "squareAll(expression)",
+    "cubeAll(expression)",
+    "squareRootAll(expression)",
+    "cubeRootAll(expression)",
+    "allToIndex(index, expression)",
     "allToRoot(rootValue, expression)"
 ]
 
@@ -48,38 +64,41 @@ function addEvents(){
 }
 
 function run(button){
-    let calcInputValue = button.nextElementSibling.value.toLowerCase();
+    let calcInputValue = button.nextElementSibling.value;
     calcInputValue = calcInputValue.split("").filter(char => prohibitedCharacters.includes(char) == false).join("");
 
     let outputText = document.createElement("label");
     let newExpression = document.createElement("label");
-    newExpression.innerHTML = "// New Expression: " + " <button class='run-button'>Run</button><input spellcheck='false' type='text' placeholder='Type here...' class='calc-input'>";
+    newExpression.innerHTML = "< New Expression >" + " <button class='run-button'>Run</button><input spellcheck='false' type='text' placeholder='Type here...' class='calc-input'>";
     
     //the isNaN part is to make sure the user can't just enter only numbers
     if(calcInputValue == "" || isNaN(parseInt(calcInputValue)) == false){
-        outputText.innerHTML = "// Output: <span>error</span>";
+        outputText.innerHTML = "< Output > <span>error</span>";
     }
     else{
-        if(calcInputValue.includes("manual")){
-            let splitInput = calcInputValue.split(" ");
+        if(calcInputValue.toLowerCase().includes("manual")){
+            let splitInput = calcInputValue.toLowerCase().split(" ");
             //first if statement is to make sure the first word is manual
             if(splitInput[0] != "manual"){
-                outputText.innerHTML = "// Output: <span>error</span>";
+                outputText.innerHTML = "< Output > <span>error</span>";
             }
             else if(splitInput[1] == "number" || splitInput[1] == "num"){
-                outputText.innerHTML = "// Output: " + "<span>" + numFunctions.join("<br/>") + "</span>";
+                outputText.innerHTML = "< Output > " + "<span>" + numFunctions.join("<br/>") + "</span>";
             }
             else if(splitInput[1] == "operator"){
-                outputText.innerHTML = "// Output: " + "<span>" + operatorFunctions.join("<br/>") + "</span>";
+                outputText.innerHTML = "< Output > " + "<span>" + operatorFunctions.join("<br/>") + "</span>";
             }
             else if(splitInput[1] == "index" || splitInput[1] == "root"){
-                outputText.innerHTML = "// Output: " + "<span>" + indexFunctions.join("<br/>") + "</span>";
+                outputText.innerHTML = "< Output > " + "<span>" + indexFunctions.join("<br/>") + "</span>";
+            }
+            else if(splitInput[1] == "all" || splitInput[1] == "root"){
+                outputText.innerHTML = "< Output > " + "<span>" + allFunctions.join("<br/>") + "</span>";
             }
             else if(splitInput[1] == "other"){
-                outputText.innerHTML = "// Output: " + "<span>" + otherFunctions.join("<br/>") + "</span>";
+                outputText.innerHTML = "< Output > " + "<span>" + otherFunctions.join("<br/>") + "</span>";
             }
             else{
-                outputText.innerHTML = "// Output: <span>error</span>";
+                outputText.innerHTML = "< Output > <span>error</span>";
             }
 
             calcTerminalContainer.appendChild(outputText);
@@ -89,12 +108,12 @@ function run(button){
         }
         else{
             if(calcInputValue.split("").filter(char => char == "(").length != calcInputValue.split("").filter(char => char == ")").length){
-                outputText.innerHTML = "// Output: <span>error</span>";
+                outputText.innerHTML = "< Output > <span>error</span>";
             }
             else{
                 //removes the space between the numbers to avoid an instance where num(3 * 6) would return an error because it was changed to num(3 6) instead of num(36)
                 outputValue = eval(calcInputValue.split("").filter(char => char != " ").join(""));
-                outputText.innerHTML = "// Output: " + "<span>" + outputValue + "</span>";
+                outputText.innerHTML = "< Output > " + "<span>" + outputValue + "</span>";
             }
             
             calcTerminalContainer.appendChild(outputText);
@@ -174,13 +193,28 @@ function numToRoot(number, rootValue, operator){
     }
 }
 
+function numFactorial(number, operator){
+    let factorialValue = 1;
+
+    for(i = number; i > 1; i--){
+        factorialValue *= i;
+    }
+
+    if(operator == null){
+        return factorialValue;
+    }
+    else{
+        return eval(factorialValue + operator);
+    }
+}
+
 function squareAll(expression){
     return eval(Math.pow(eval(expression), 2));
 }
 function cubeAll(expression){
     return eval(Math.pow(eval(expression), 3));
 }
-function allToIndex(index, expression){
+function allToIndex(expression, index){
     return eval(Math.pow(eval(expression), index));
 }
 
@@ -190,8 +224,17 @@ function squareRootAll(expression){
 function cubeRootAll(expression){
     return eval(Math.pow(eval(expression), 1/3));
 }
-function allToRoot(rootValue, expression){
+function allToRoot(expression, rootValue){
     return eval(Math.pow(eval(expression), 1/rootValue));
+}
+function allFactorial(expression){
+    let factorialValue = 1;
+
+    for(i = eval(expression); i > 1; i--){
+        factorialValue *= i;
+    }
+
+    return factorialValue;
 }
 
 function output(){

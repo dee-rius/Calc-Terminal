@@ -13,6 +13,32 @@
     }
 }
 
+@keyframes enter{
+    0%{
+        transform: translateY(-50px);
+        opacity: 50%;
+    }
+    100%{
+        transform: translateY(0);
+        opacity: 100%;
+    }
+}
+@keyframes exit{
+    0%{
+        transform: translateY(0px);
+        opacity: 100%;
+    }
+    100%{
+        transform: translateY(-50);
+        opacity: 0%;
+    }
+}
+
+::-moz-selection{
+    background-color: var(--text-color);
+    color: var(--background-color);
+}
+
 ::selection{
     background-color: var(--text-color);
     color: var(--background-color);
@@ -21,8 +47,6 @@
 :root{
     --background-color: #00051C;
     --text-color: #52DEE5;
-    --complementery-color: #FFFECB;
-    --functions-color: #FFD427;
 }
 
 body{
@@ -85,12 +109,27 @@ button::after{
     animation: blink 0.5s ease 0.3s infinite normal forwards;
 }
 
-span{
-    color: var(--text-color);
-}
-
 #everything{
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+#functions-dropdown{
+    display: none;
+    display: flex;
+    gap: 5px;
+}
+
+#functions-dropdown p{
+    background-color: rgb(from var(--text-color) r g b/0.1);
+    padding: 5px;
+}
+
+.enter-anim{
+    animation: enter 0.3s ease 0s 1 normal forwards;
+}
+
+.exit-anim{
+    animation: exit 0.3s ease 0s 1 normal forwards;
 }

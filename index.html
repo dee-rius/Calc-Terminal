@@ -14,13 +14,37 @@
 <body>
     <div id="everything">
         <header>
-            <div id="tips"> <p>Clear: type "clear"</p> <p>Available functions: type "manual " + ("num"/"operator"/"index"/"root"/"other")</p></div>
+            <p id="show-functions" style="width: 100%; cursor: pointer;">Click To Hide Functions</p>
+            <div id="functions-dropdown" class="enter-anim">
+                <p>Clear: type "clear"</p>
+                <p>Calc functions: type "manual " + ("num"/"operator"/"index"/"root"/"other")</p>
+            </div>
             <hr style="border-color: var(--text-color);"/>
         </header>
         <main id="calc-teminal-container">
-            <label for="calc-input">// New Expression: <button class="run-button">Run</button><input spellcheck="false" type="text" placeholder="Type here..."  class="calc-input"></textarea></label>
+            <label for="calc-input">< New Expression ><button class="run-button">Run</button><input spellcheck="false" type="text" placeholder="Type here..."  class="calc-input"></textarea></label>
         </main>
     </div>
-    <script src="calc-script.js"></script>
+    <script name="show-functions-script">
+        const showFunctions = document.getElementById("show-functions");
+        const functionsDropdown = document.getElementById("functions-dropdown");
+
+        showFunctions.addEventListener("click", () => {
+            if(functionsDropdown.style.display == "none"){
+                functionsDropdown.classList.remove("exit-anim");
+                functionsDropdown.classList.add("enter-anim");
+                functionsDropdown.style.display = "flex";
+
+                showFunctions.textContent = "Click To Hide Functions";
+            }
+            else{
+                functionsDropdown.classList.add("enter-anim");
+                functionsDropdown.classList.add("exit-anim");
+
+                setTimeout(() => {functionsDropdown.style.display = "none"; showFunctions.textContent = "Click To Show Functions"}, 170);
+            }
+        });
+    </script>
+    <script src="calc-script.js" name="calc-input-script"></script>
 </body>
 </html>
