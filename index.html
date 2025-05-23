@@ -16,16 +16,16 @@
         <header>
             <p id="show-functions" style="width: 100%; cursor: pointer;">Click To Hide Functions</p>
             <div id="functions-dropdown" class="enter-anim">
-                <p>Clear: type "clear"</p>
-                <p>Calc functions: type "manual " + ("num" / "operator" / "index" / "root" / "other")</p>
+                <p name="function=tip">Clear: type "clear"</p>
+                <p name="function-tip">Calc functions: type "manual " + ("num" / "operator" / "index" / "root" / "other")</p>
             </div>
             <hr style="border-color: var(--text-color);"/>
         </header>
         <main id="calc-teminal-container">
-            <label for="calc-input">< New Expression ><button class="run-button">Run</button><input spellcheck="false" type="text" placeholder="Type here..."  class="calc-input"></textarea></label>
+            <label for="calc-input">< New Expression ><button name="run-button" class="run-button">Run</button><input name="calc-input" spellcheck="false" type="text" placeholder="Type here..." class="calc-input"></textarea></label>
         </main>
     </div>
-    <script name="show-functions-script">
+    <script name="show-hide-functions-script">
         const showFunctions = document.getElementById("show-functions");
         const functionsDropdown = document.getElementById("functions-dropdown");
 
