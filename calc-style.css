@@ -119,6 +119,9 @@ button::after{
     display: none;
     display: flex;
     gap: 5px;
+
+    flex-wrap: wrap;
+    flex-grow: 1;
 }
 
 #functions-dropdown p{
