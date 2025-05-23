@@ -57,6 +57,7 @@ body{
 
 p{
     color: var(--text-color);
+    word-break: break-word;
 }
 
 main{
