@@ -78,7 +78,6 @@ function run(button) {
     else {
         if(calcInputValue.toLowerCase().includes("manual")) {
             let splitInput = calcInputValue.toLowerCase().split(" ");
-            console.log("Manual included");
             //first if statement is to make sure the first word is manual
             if(splitInput[0] != "manual") {
                 outputText.innerHTML = "< Output > <span name='output-value'>error</span>";
