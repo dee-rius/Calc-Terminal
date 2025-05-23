@@ -51,13 +51,13 @@
 
 body{
     background-color: var(--background-color);
+    height: 100vh;
     font-family: "Fira Code", monospace;
     font-size: smaller;
 }
 
 p{
     color: var(--text-color);
-    word-break: break-word;
 }
 
 main{
@@ -113,6 +113,7 @@ button::after{
 #everything{
     display: flex;
     flex-direction: column;
+    justify-content: space-evenly;
     gap: 10px;
 }
 
