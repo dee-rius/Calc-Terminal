@@ -64,7 +64,7 @@ getElements();
 
 function getElements() {
     runButtons = Array.from(document.getElementsByClassName("run-button"));
-    expressionInputs = Array.from(document.getElementsByClassName("calc-input"));
+    expressionInputs = Array.from(document.getElementsByClassName("expression-input"));
 }
 
 addEventsOnStartUp();
