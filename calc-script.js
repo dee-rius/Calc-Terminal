@@ -1,6 +1,6 @@
 const calcTerminalContainer = document.getElementById("calc-teminal-container");
-let runButtons = Array.from(document.getElementsByClassName("run-button"));
-let calcInputs = Array.from(document.getElementsByClassName("calc-input"));
+let runButtons = [];
+let expressionInputs = [];
 
 let outputValue = 0;
 
@@ -60,66 +60,105 @@ const allFunctions = {
 
 const prohibitedCharacters = ["/", "*", "+", "-", "^", "%"];
 
-addEvents();
+getElements();
 
-function addEvents() {
+function getElements() {
+    runButtons = Array.from(document.getElementsByClassName("run-button"));
+    expressionInputs = Array.from(document.getElementsByClassName("calc-input"));
+}
+
+addEventsOnStartUp();
+
+function addEventsOnStartUp() {
     for (let runButton of runButtons) {
         runButton.addEventListener("click", () => { if (runButton.nextElementSibling.value != "") { run(runButton) } });
     }
 }
 
 function run(button) {
-    let calcInputValue = button.nextElementSibling.value;
-    calcInputValue = calcInputValue.split("").filter(char => prohibitedCharacters.includes(char) == false).join("");
+    let expressionInputValue = button.nextElementSibling.value;
+    expressionInputValue = expressionInputValue.split("").filter(char => prohibitedCharacters.includes(char) == false).join("");
 
-    let outputText = document.createElement("label");
-    let newExpression = document.createElement("label");
-    newExpression.innerHTML = "< New Expression >" + " <button name='run-button' class='run-button'>Run</button><input spellcheck='false' type='text' placeholder='Type here...' name='calc-input' class='calc-input'>";
+    let outputTextLabel = document.createElement("label");
+    let newExpressionLabel = document.createElement("label");
+    newExpressionLabel.innerHTML = "< New Expression >";
+    createRunButtonAndExpressionInputFor(newExpressionLabel);
 
     //the isNaN part is to make sure the user can't just enter only numbers
-    if(calcInputValue == "" || isNaN(parseInt(calcInputValue)) == false) {
-        outputText.innerHTML = "< Output > <span name='output-value'>error</span>";
+    if (expressionInputValue == "" || isNaN(parseInt(expressionInputValue)) == false) {
+        setOutputValue(error);
     }
     else {
-        if(calcInputValue.toLowerCase().includes("manual")) {
-            let splitInput = calcInputValue.toLowerCase().split(" ");
-            //first if statement is to make sure the first word is manual
-            if(splitInput[0] != "manual") {
-                outputText.innerHTML = "< Output > <span name='output-value'>error</span>";
-            }
-            else {
-                for(let tag in allFunctions){
-                    if(String(tag).toLowerCase().includes(splitInput[1]) == true){
-                        outputText.innerHTML = "< Output > <span name='output-value'>" + allFunctions[tag].join("<br/>") + "</span>";
-                    }
-                }
-            }
+        if (expressionInputValue.toLowerCase().includes("manual")) {
+            runManualFunctions();
 
-            calcTerminalContainer.appendChild(outputText);
         }
-        else if (calcInputValue == "clear") {
+        else if (expressionInputValue == "clear") {
             calcTerminalContainer.innerHTML = "";
         }
         else {
-            if (calcInputValue.split("").filter(char => char == "(").length != calcInputValue.split("").filter(char => char == ")").length) {
-                outputText.innerHTML = "< Output > <span name='output-value'>error</span>";
-            }
-            else {
-                //removes the space between the numbers to avoid an instance where num(3 * 6) would return an error because it was changed to num(3 6) instead of num(36)
-                outputValue = eval(calcInputValue.split("").filter(char => char != " ").join(""));
-                outputText.innerHTML = "< Output > " + "<span name='output-value'>" + outputValue + "</span>";
-            }
-
-            calcTerminalContainer.appendChild(outputText);
+            calcInputtedExpression();
         }
     }
 
-    calcTerminalContainer.appendChild(newExpression);
+    calcTerminalContainer.appendChild(newExpressionLabel);
+    getElements();
 
-    runButtons = Array.from(document.getElementsByClassName("run-button"));
-    calcInputs = Array.from(document.getElementsByClassName("calc-input"));
 
-    addEvents();
+    function createRunButtonAndExpressionInputFor(label){
+        let newRunButton = document.createElement("button");
+        newRunButton.name = "run-button";
+        newRunButton.classList.add(newRunButton.name);
+        newRunButton.textContent = "Run";
+        newRunButton.addEventListener('click', () => { if (newRunButton.nextElementSibling.value != "") { run(newRunButton) } });
+
+        let newExpressionInput = document.createElement("input");
+        newExpressionInput.name = "expression-input";
+        newExpressionInput.classList.add(newExpressionInput.name);
+        newExpressionInput.spellcheck = "false";
+        newExpressionInput.placeholder = "Type here...";
+
+        label.append(newRunButton, newExpressionInput);
+    }
+
+    function runManualFunctions() {
+        let splitInput = expressionInputValue.toLowerCase().split(" ");
+        //first if statement is to make sure the first word is manual
+        if (splitInput[0] != "manual") {
+            setOutputValue(error);
+        }
+        else {
+            for (let tag in allFunctions) {
+                if (String(tag).toLowerCase().includes(splitInput[1]) == true) {
+                   setOutputValue(allFunctions[tag].join("<br/>"));
+                }
+            }
+        }
+
+        calcTerminalContainer.appendChild(outputTextLabel);
+    }
+
+    function calcInputtedExpression(){
+        if (expressionInputValue.split("").filter(char => char == "(").length != expressionInputValue.split("").filter(char => char == ")").length) {
+            setOutputValue(error);
+        }
+        else {
+            //removes the space between the numbers to avoid an instance where num(3 * 6) would return an error because it was changed (* is prohibited) to num(3 6) instead of num(36)
+            outputValue = parseFloat(eval(expressionInputValue.split("").filter(char => char != " ").join("")));
+            setOutputValue(outputValue);
+        }
+
+        calcTerminalContainer.appendChild(outputTextLabel);
+    }
+
+    function setOutputValue(outputValue){
+        let outputTextElement = document.createElement("span");
+        outputTextElement.name = "output-value";
+        outputTextElement.innerHTML = outputValue;
+
+        outputTextLabel.textContent = "< Output > ";
+        outputTextLabel.appendChild(outputTextElement);
+    }
 }
 
 
@@ -129,7 +168,7 @@ function num(number, operator) {
         return number;
     }
     else {
-        return eval(number + operator);
+        return String(number + operator);
     }
 }
 
@@ -138,7 +177,7 @@ function numSquared(number, operator) {
         return Math.pow(number, 2);
     }
     else {
-        return eval(Math.pow(number, 2) + operator);
+        return String(Math.pow(number, 2) + operator);
     }
 }
 
@@ -147,7 +186,7 @@ function numCubed(number, operator) {
         return Math.pow(number, 3);
     }
     else {
-        return eval(Math.pow(number, 3) + operator);
+        return String(Math.pow(number, 3) + operator);
     }
 }
 
@@ -156,7 +195,7 @@ function numToIndex(number, index, operator) {
         return Math.pow(number, index);
     }
     else {
-        return eval(Math.pow(number, index) + operator);
+        return String(Math.pow(number, index) + operator);
     }
 }
 
@@ -165,7 +204,7 @@ function numSquareRoot(number, operator) {
         return Math.pow(number, 1 / 2);
     }
     else {
-        return eval(Math.pow(number, 1 / 2) + operator);
+        return String(Math.pow(number, 1 / 2) + operator);
     }
 }
 
@@ -174,7 +213,7 @@ function numCubeRoot(number, operator) {
         return Math.pow(number, 1 / 3);
     }
     else {
-        return eval(Math.pow(number, 1 / 3) + operator);
+        return String(Math.pow(number, 1 / 3) + operator);
     }
 }
 
@@ -183,7 +222,7 @@ function numToRoot(number, rootValue, operator) {
         return Math.pow(number, 1 / rootValue);
     }
     else {
-        return eval(Math.pow(number, 1 / rootValue) + operator);
+        return String(Math.pow(number, 1 / rootValue) + operator);
     }
 }
 
@@ -198,28 +237,28 @@ function numFactorial(number, operator) {
         return factorialValue;
     }
     else {
-        return eval(factorialValue + operator);
+        return String(factorialValue + operator);
     }
 }
 
 //apply to all(return of all functions nested in it) functions
 function squareAll(expression) {
-    return eval(Math.pow(eval(expression), 2));
+    return String(Math.pow(eval(expression), 2));
 }
 function cubeAll(expression) {
-    return eval(Math.pow(eval(expression), 3));
+    return String(Math.pow(eval(expression), 3));
 }
 function allToIndex(expression, index) {
-    return eval(Math.pow(eval(expression), index));
+    return String(Math.pow(eval(expression), index));
 }
 function squareRootAll(expression) {
-    return eval(Math.pow(eval(expression), 1 / 2));
+    return String(Math.pow(eval(expression), 1 / 2));
 }
 function cubeRootAll(expression) {
-    return eval(Math.pow(eval(expression), 1 / 3));
+    return String(Math.pow(eval(expression), 1 / 3));
 }
 function allToRoot(expression, rootValue) {
-    return eval(Math.pow(eval(expression), 1 / rootValue));
+    return String(Math.pow(eval(expression), 1 / rootValue));
 }
 function allFactorial(expression) {
     let factorialValue = 1;
@@ -228,7 +267,7 @@ function allFactorial(expression) {
         factorialValue *= i;
     }
 
-    return factorialValue;
+    return String(factorialValue);
 }
 
 
@@ -263,9 +302,9 @@ function multipliedBy(number) {
 function output() {
     return outputValue;
 }
-function randomInt(minNum, maxNum){
+function randomInt(minNum, maxNum) {
     return Math.round((Math.random() * (maxNum - minNum)) + minNum);
 }
-function randomNumToDp(minNum, maxNum, dPValue){
-    return eval((Math.random() * (maxNum - minNum) + minNum).toFixed(dPValue));
+function randomNumToDp(minNum, maxNum, dPValue) {
+    return Number((Math.random() * (maxNum - minNum) + minNum).toFixed(dPValue));
 }
