@@ -144,8 +144,9 @@ function run(button) {
         }
         else {
             //removes the space between the numbers to avoid an instance where num(3 * 6) would return an error because it was changed (* is prohibited) to num(3 6) instead of num(36)
-            outputValue = parseFloat(eval(expressionInputValue.split("").filter(char => char != " ").join("")));
-            setOutputValue(outputValue);
+            //also returns an actual mathematical expression (e.g, 5 + 5);
+            let inputToExpression = eval(expressionInputValue.split("").filter(char => char != " ").join(""));
+            setOutputValue(eval(inputToExpression));
         }
 
         calcTerminalContainer.appendChild(outputTextLabel);
