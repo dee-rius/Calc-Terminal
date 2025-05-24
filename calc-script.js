@@ -46,10 +46,15 @@ const allFunctions = {
         "allToIndex(expression, index)",
         "squareRootAll(expression)",
         "cubeRootAll(expression)",
-        "allToRoot(rootValue, expression)"
+        "allToRoot(rootValue, expression)",
+        "allFactorial(expression)"
     ],
     otherFunctions: [
         "output()",
+        "numFactorial(number, operator)",
+        "allFactorial(expression)",
+        "randomInt(minValue, maxValue)",
+        "randomNumToDp(minValue, maxValue, dPValue)"
     ]
 }
 
@@ -118,7 +123,7 @@ function run(button) {
 }
 
 
-//number functions
+//calc number functions
 function num(number, operator) {
     if (operator == null) {
         return number;
@@ -197,6 +202,7 @@ function numFactorial(number, operator) {
     }
 }
 
+//apply to all(return of all functions nested in it) functions
 function squareAll(expression) {
     return eval(Math.pow(eval(expression), 2));
 }
@@ -206,7 +212,6 @@ function cubeAll(expression) {
 function allToIndex(expression, index) {
     return eval(Math.pow(eval(expression), index));
 }
-
 function squareRootAll(expression) {
     return eval(Math.pow(eval(expression), 1 / 2));
 }
@@ -224,10 +229,6 @@ function allFactorial(expression) {
     }
 
     return factorialValue;
-}
-
-function output() {
-    return outputValue;
 }
 
 
@@ -256,4 +257,15 @@ function times(number) {
 }
 function multipliedBy(number) {
     return "*" + number;
+}
+
+//other functions
+function output() {
+    return outputValue;
+}
+function randomInt(minNum, maxNum){
+    return Math.round((Math.random() * (maxNum - minNum)) + minNum);
+}
+function randomNumToDp(minNum, maxNum, dPValue){
+    return eval((Math.random() * (maxNum - minNum) + minNum).toFixed(dPValue));
 }
