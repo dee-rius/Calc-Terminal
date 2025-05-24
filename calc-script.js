@@ -115,7 +115,7 @@ function run(button) {
         let newExpressionInput = document.createElement("input");
         newExpressionInput.name = "expression-input";
         newExpressionInput.classList.add(newExpressionInput.name);
-        newExpressionInput.spellcheck = "false";
+        newExpressionInput.spellcheck = false; 
         newExpressionInput.placeholder = "Type here...";
 
         label.append(newRunButton, newExpressionInput);
