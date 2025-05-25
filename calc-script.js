@@ -146,16 +146,17 @@ function run(button) {
             //removes the space between the numbers to avoid an instance where num(3 * 6) would return an error because it was changed (* is prohibited) to num(3 6) instead of num(36)
             //also returns an actual mathematical expression (e.g, 5 + 5);
             let inputToExpression = eval(expressionInputValue.split("").filter(char => char != " ").join(""));
-            setOutputValue(eval(inputToExpression));
+            outputValue = eval(inputToExpression)
+            setOutputValue(eval(outputValue));
         }
 
         calcTerminalContainer.appendChild(outputTextLabel);
     }
 
-    function setOutputValue(outputValue){
+    function setOutputValue(outputTextValue){
         let outputTextElement = document.createElement("span");
         outputTextElement.name = "output-value";
-        outputTextElement.innerHTML = outputValue;
+        outputTextElement.innerHTML = outputTextValue;
 
         outputTextLabel.textContent = "< Output >";
         outputTextLabel.appendChild(outputTextElement);
