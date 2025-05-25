@@ -305,7 +305,7 @@ function multipliedBy(number) {
 function output() {
     return outputValue;
 }
-function brackets(brackettedPartOfExpression, otherPartOfExpression){
+function inBracket(brackettedPartOfExpression, otherPartOfExpression){
     if(otherPartOfExpression == null){
         return "(" + brackettedPartOfExpression + ")";
     }
