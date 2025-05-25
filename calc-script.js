@@ -54,11 +54,12 @@ const allFunctions = {
         "numFactorial(number, operator)",
         "allFactorial(expression)",
         "randomInt(minValue, maxValue)",
-        "randomNumToDp(minValue, maxValue, dPValue)"
+        "randomNumToDp(minValue, maxValue, dPValue)",
+        "brackets(brackettedPartOfExpression, otherPartOfExpression)"
     ]
 }
 
-const prohibitedCharacters = ["/", "*", "+", "-", "^", "%"];
+const prohibitedCharacters = ["/", "*", "+", "-", "^", "%", "^"];
 
 getElements();
 
@@ -303,6 +304,14 @@ function multipliedBy(number) {
 //other functions
 function output() {
     return outputValue;
+}
+function brackets(brackettedPartOfExpression, otherPartOfExpression){
+    if(otherPartOfExpression == null){
+        return "(" + brackettedPartOfExpression + ")";
+    }
+    else{
+        return "(" + brackettedPartOfExpression + ")" + otherPartOfExpression;
+    }
 }
 function randomInt(minNum, maxNum) {
     return Math.round((Math.random() * (maxNum - minNum)) + minNum);
