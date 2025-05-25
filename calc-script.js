@@ -81,7 +81,7 @@ function run(button) {
 
     let outputTextLabel = document.createElement("label");
     let newExpressionLabel = document.createElement("label");
-    newExpressionLabel.innerHTML = "< New Expression >";
+    newExpressionLabel.innerHTML = "< Expression >";
     createRunButtonAndExpressionInputFor(newExpressionLabel);
 
     //the isNaN part is to make sure the user can't just enter only numbers
@@ -157,7 +157,7 @@ function run(button) {
         outputTextElement.name = "output-value";
         outputTextElement.innerHTML = outputValue;
 
-        outputTextLabel.textContent = "< Output > ";
+        outputTextLabel.textContent = "< Output >";
         outputTextLabel.appendChild(outputTextElement);
     }
 }
