@@ -50,7 +50,7 @@ const allFunctions = {
         "allFactorial(expression)"
     ],
     otherFunctions: [
-        "output()",
+        "output(operatorOrOtherFunction)",
         "numFactorial(number, operatorOrOtherFunction)",
         "allFactorial(expression)",
         "randomInt(minValue, maxValue)",
@@ -302,8 +302,13 @@ function multipliedBy(numOrOtherFunction) {
 }
 
 //other functions
-function output() {
-    return outputValue;
+function output(operatorOrOtherFunction) {
+    if(operatorOrOtherFunction == null){
+        return outputValue;
+    }
+    else{
+        return String(outputValue + operatorOrOtherFunction);
+    }
 }
 function inBrackets(brackettedPartOfExpression, operatorOrOtherFunction){
     if(operatorOrOtherFunction == null){
