@@ -55,7 +55,7 @@ const allFunctions = {
         "allFactorial(expression)",
         "randomInt(minValue, maxValue)",
         "randomNumToDp(minValue, maxValue, dPValue)",
-        "brackets(brackettedPartOfExpression, otherPartOfExpression)"
+        "inBrackets(brackettedPartOfExpression, otherPartOfExpression)"
     ]
 }
 
@@ -305,7 +305,7 @@ function multipliedBy(number) {
 function output() {
     return outputValue;
 }
-function inBracket(brackettedPartOfExpression, otherPartOfExpression){
+function inBrackets(brackettedPartOfExpression, otherPartOfExpression){
     if(otherPartOfExpression == null){
         return "(" + brackettedPartOfExpression + ")";
     }
