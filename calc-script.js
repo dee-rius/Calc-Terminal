@@ -6,39 +6,39 @@ let outputValue = 0;
 
 const allFunctions = {
     numfunctions: [
-        "num(number, operator)",
-        "numSquared(number, operator)",
-        "numCubed(number, operator)",
-        "numToIndex(number, index, operator)",
-        "numSquareRoot(number, operator)",
-        "numCubeRoot(number, operator)",
-        "numToRoot(number, rootValue, operator)",
-        "numFactorial(number, operator)"
+        "num(number, operatorOrOtherFunction)",
+        "numSquared(number, operatorOrOtherFunction)",
+        "numCubed(number, operatorOrOtherFunction)",
+        "numToIndex(number, index, operatorOrOtherFunction)",
+        "numSquareRoot(number, operatorOrOtherFunction)",
+        "numCubeRoot(number, operatorOrOtherFunction)",
+        "numToRoot(number, rootValue, operatorOrOtherFunction)",
+        "numFactorial(number, operatorOrOtherFunction)"
     ],
     operatorFunctions: [
-        "add(number)",
-        "plus(number)",
-        "minus(number)",
-        "subtract(number)",
-        "dividedBy(number)",
-        "times(number)",
-        "multipliedBy(number)"
+        "add(numOrOtherFunction)",
+        "plus(numOrOtherFunction)",
+        "minus(numOrOtherFunction)",
+        "subtract(numOrOtherFunction)",
+        "dividedBy(numOrOtherFunction)",
+        "times(numOrOtherFunction)",
+        "multipliedBy(numOrOtherFunction)"
     ],
     indexFunctions: [
-        "numSquared(number, operator)",
-        "numCubed(number, operator)",
-        "numToIndex(number, index, operator)",
+        "numSquared(number, operatorOrOtherFunction)",
+        "numCubed(number, operatorOrOtherFunction)",
+        "numToIndex(number, index, operatorOrOtherFunction)",
         "squareAll(expression)",
         "cubeAll(expression)",
         "allToIndex(expression, index)"
     ],
     rootFunctions: [
-        "numSquareRoot(number, operator)",
-        "numCubeRoot(number, operator)",
-        "numToRoot(number, rootValue, operator)",
+        "numSquareRoot(number, operatorOrOtherFunction)",
+        "numCubeRoot(number, operatorOrOtherFunction)",
+        "numToRoot(number, rootValue, operatorOrOtherFunction)",
         "squareRootAll(expression)",
         "cubeRootAll(expression)",
-        "allToRoot(rootValue, expression)"
+        "allToRoot(expression, rootValue)"
     ],
     allFunctions: [
         "squareAll(expression)",
@@ -46,20 +46,20 @@ const allFunctions = {
         "allToIndex(expression, index)",
         "squareRootAll(expression)",
         "cubeRootAll(expression)",
-        "allToRoot(rootValue, expression)",
+        "allToRoot(expression, rootValue)",
         "allFactorial(expression)"
     ],
     otherFunctions: [
         "output()",
-        "numFactorial(number, operator)",
+        "numFactorial(number, operatorOrOtherFunction)",
         "allFactorial(expression)",
         "randomInt(minValue, maxValue)",
         "randomNumToDp(minValue, maxValue, dPValue)",
-        "inBrackets(brackettedPartOfExpression, otherPartOfExpression)"
+        "inBrackets(brackettedPartOfExpression, operatorOrOtherFunction)"
     ]
 }
 
-const prohibitedCharacters = ["/", "*", "+", "-", "^", "%", "^"];
+const prohibitedCharacters = ["/", "*", "+", "-", "^", "%"];
 
 getElements();
 
@@ -166,81 +166,81 @@ function run(button) {
 
 
 //calc number functions
-function num(number, operator) {
-    if (operator == null) {
+function num(number, operatorOrOtherFunction) {
+    if (operatorOrOtherFunction == null) {
         return number;
     }
     else {
-        return String(number + operator);
+        return String(number + operatorOrOtherFunction);
     }
 }
 
-function numSquared(number, operator) {
-    if (operator == null) {
+function numSquared(number, operatorOrOtherFunction) {
+    if (operatorOrOtherFunction == null) {
         return Math.pow(number, 2);
     }
     else {
-        return String(Math.pow(number, 2) + operator);
+        return String(Math.pow(number, 2) + operatorOrOtherFunction);
     }
 }
 
-function numCubed(number, operator) {
-    if (operator == null) {
+function numCubed(number, operatorOrOtherFunction) {
+    if (operatorOrOtherFunction == null) {
         return Math.pow(number, 3);
     }
     else {
-        return String(Math.pow(number, 3) + operator);
+        return String(Math.pow(number, 3) + operatorOrOtherFunction);
     }
 }
 
-function numToIndex(number, index, operator) {
-    if (operator == null) {
+function numToIndex(number, index, operatorOrOtherFunction) {
+    if (operatorOrOtherFunction == null) {
         return Math.pow(number, index);
     }
     else {
-        return String(Math.pow(number, index) + operator);
+        return String(Math.pow(number, index) + operatorOrOtherFunction);
     }
 }
 
-function numSquareRoot(number, operator) {
-    if (operator == null) {
+function numSquareRoot(number, operatorOrOtherFunction) {
+    if (operatorOrOtherFunction == null) {
         return Math.pow(number, 1 / 2);
     }
     else {
-        return String(Math.pow(number, 1 / 2) + operator);
+        return String(Math.pow(number, 1 / 2) + operatorOrOtherFunction);
     }
 }
 
-function numCubeRoot(number, operator) {
-    if (operator == null) {
+function numCubeRoot(number, operatorOrOtherFunction) {
+    if (operatorOrOtherFunction == null) {
         return Math.pow(number, 1 / 3);
     }
     else {
-        return String(Math.pow(number, 1 / 3) + operator);
+        return String(Math.pow(number, 1 / 3) + operatorOrOtherFunction);
     }
 }
 
-function numToRoot(number, rootValue, operator) {
-    if (operator == null) {
+function numToRoot(number, rootValue, operatorOrOtherFunction) {
+    if (operatorOrOtherFunction == null) {
         return Math.pow(number, 1 / rootValue);
     }
     else {
-        return String(Math.pow(number, 1 / rootValue) + operator);
+        return String(Math.pow(number, 1 / rootValue) + operatorOrOtherFunction);
     }
 }
 
-function numFactorial(number, operator) {
+function numFactorial(number, operatorOrOtherFunction) {
     let factorialValue = 1;
 
     for (i = number; i > 1; i--) {
         factorialValue *= i;
     }
 
-    if (operator == null) {
+    if (operatorOrOtherFunction == null) {
         return factorialValue;
     }
     else {
-        return String(factorialValue + operator);
+        return String(factorialValue + operatorOrOtherFunction);
     }
 }
 
@@ -276,41 +276,41 @@ function allFactorial(expression) {
 
 
 //operators
-function add(number) {
-    return "+" + number;
+function add(numOrOtherFunction) {
+    return "+" + numOrOtherFunction;
 }
-function plus(number) {
-    return "+" + number;
-}
-
-function minus(number) {
-    return "-" + number;
-}
-function subtract(number) {
-    return "-" + number;
+function plus(numOrOtherFunction) {
+    return "+" + numOrOtherFunction;
 }
 
-function dividedBy(number) {
-    return "/" + number;
+function minus(numOrOtherFunction) {
+    return "-" + numOrOtherFunction;
+}
+function subtract(numOrOtherFunction) {
+    return "-" + numOrOtherFunction;
 }
 
-function times(number) {
-    return "*" + number;
+function dividedBy(numOrOtherFunction) {
+    return "/" + numOrOtherFunction;
 }
-function multipliedBy(number) {
-    return "*" + number;
+
+function times(numOrOtherFunction) {
+    return "*" + numOrOtherFunction;
+}
+function multipliedBy(numOrOtherFunction) {
+    return "*" + numOrOtherFunction;
 }
 
 //other functions
 function output() {
     return outputValue;
 }
-function inBrackets(brackettedPartOfExpression, otherPartOfExpression){
-    if(otherPartOfExpression == null){
+function inBrackets(brackettedPartOfExpression, operatorOrOtherFunction){
+    if(operatorOrOtherFunction == null){
         return "(" + brackettedPartOfExpression + ")";
     }
     else{
-        return "(" + brackettedPartOfExpression + ")" + otherPartOfExpression;
+        return "(" + brackettedPartOfExpression + ")" + operatorOrOtherFunction;
     }
 }
 function randomInt(minNum, maxNum) {
