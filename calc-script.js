@@ -50,12 +50,13 @@ const allFunctions = {
         "allFactorial(expression)"
     ],
     otherFunctions: [
+        "pi(operatorOrOtherFunction)",
         "output(operatorOrOtherFunction)",
         "numFactorial(number, operatorOrOtherFunction)",
         "allFactorial(expression)",
+        "inBrackets(brackettedPartOfExpression, operatorOrOtherFunction)",
         "randomInt(minValue, maxValue)",
         "randomNumToDp(minValue, maxValue, dPValue)",
-        "inBrackets(brackettedPartOfExpression, operatorOrOtherFunction)"
     ]
 }
 
@@ -312,10 +313,18 @@ function output(operatorOrOtherFunction) {
 }
 function inBrackets(brackettedPartOfExpression, operatorOrOtherFunction){
     if(operatorOrOtherFunction == null){
-        return "(" + brackettedPartOfExpression + ")";
+        return eval(brackettedPartOfExpression);
     }
     else{
-        return "(" + brackettedPartOfExpression + ")" + operatorOrOtherFunction;
+        return String(eval(brackettedPartOfExpression) + operatorOrOtherFunction);
+    }
+}
+function pi(operatorOrOtherFunction){
+    if(operatorOrOtherFunction == null){
+        return (22/7);
+    }
+    else{
+        return String((22/7) + operatorOrOtherFunction);
     }
 }
 function randomInt(minNum, maxNum) {
