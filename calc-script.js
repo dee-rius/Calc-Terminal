@@ -52,8 +52,6 @@ const allFunctions = {
     otherFunctions: [
         "pi(operatorOrOtherFunction)",
         "output(operatorOrOtherFunction)",
-        "numFactorial(number, operatorOrOtherFunction)",
-        "allFactorial(expression)",
         "inBrackets(brackettedPartOfExpression, operatorOrOtherFunction)",
         "randomInt(minValue, maxValue)",
         "randomNumToDp(minValue, maxValue, dPValue)",
