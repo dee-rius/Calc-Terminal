@@ -84,28 +84,34 @@ function run(button) {
     newExpressionLabel.innerHTML = "< Expression >";
     createRunButtonAndExpressionInputFor(newExpressionLabel);
 
-    //the isNaN part is to make sure the user can't just enter only numbers
-    if (expressionInputValue == "" || isNaN(parseInt(expressionInputValue)) == false) {
-        setOutputValue(error);
-    }
-    else {
-        if (expressionInputValue.toLowerCase().includes("manual")) {
-            runManualFunctions();
-
-        }
-        else if (expressionInputValue == "clear") {
-            calcTerminalContainer.innerHTML = "";
+    try {
+        //the isNaN part is to make sure the user can't just enter only numbers
+        if (expressionInputValue == "" || isNaN(parseInt(expressionInputValue)) == false) {
+            setOutputValue(error);
         }
         else {
-            calcInputtedExpression();
+            if (expressionInputValue.toLowerCase().includes("manual")) {
+                runManualFunctions();
+
+            }
+            else if (expressionInputValue == "clear") {
+                calcTerminalContainer.innerHTML = "";
+            }
+            else {
+                calcInputtedExpression();
+            }
         }
     }
-
+    catch (error) {
+        setOutputValue(error);
+    }
+    
+    calcTerminalContainer.appendChild(outputTextLabel);
     calcTerminalContainer.appendChild(newExpressionLabel);
     getElements();
 
 
-    function createRunButtonAndExpressionInputFor(label){
+    function createRunButtonAndExpressionInputFor(label) {
         let newRunButton = document.createElement("button");
         newRunButton.name = "run-button";
         newRunButton.classList.add(newRunButton.name);
@@ -115,7 +121,7 @@ function run(button) {
         let newExpressionInput = document.createElement("input");
         newExpressionInput.name = "expression-input";
         newExpressionInput.classList.add(newExpressionInput.name);
-        newExpressionInput.spellcheck = false; 
+        newExpressionInput.spellcheck = false;
         newExpressionInput.placeholder = "Type here...";
 
         label.append(newRunButton, newExpressionInput);
@@ -130,15 +136,13 @@ function run(button) {
         else {
             for (let tag in allFunctions) {
                 if (String(tag).toLowerCase().includes(splitInput[1]) == true) {
-                   setOutputValue(allFunctions[tag].join("<br/>"));
+                    setOutputValue(allFunctions[tag].join("<br/>"));
                 }
             }
         }
-
-        calcTerminalContainer.appendChild(outputTextLabel);
     }
 
-    function calcInputtedExpression(){
+    function calcInputtedExpression() {
         if (expressionInputValue.split("").filter(char => char == "(").length != expressionInputValue.split("").filter(char => char == ")").length) {
             setOutputValue(error);
         }
@@ -153,7 +157,7 @@ function run(button) {
         calcTerminalContainer.appendChild(outputTextLabel);
     }
 
-    function setOutputValue(outputTextValue){
+    function setOutputValue(outputTextValue) {
         let outputTextElement = document.createElement("span");
         outputTextElement.name = "output-value";
         outputTextElement.innerHTML = outputTextValue;
@@ -302,27 +306,27 @@ function multipliedBy(numOrOtherFunction) {
 
 //other functions
 function output(operatorOrOtherFunction) {
-    if(operatorOrOtherFunction == null){
+    if (operatorOrOtherFunction == null) {
         return outputValue;
     }
-    else{
+    else {
         return String(outputValue + operatorOrOtherFunction);
     }
 }
-function inBrackets(brackettedPartOfExpression, operatorOrOtherFunction){
-    if(operatorOrOtherFunction == null){
+function inBrackets(brackettedPartOfExpression, operatorOrOtherFunction) {
+    if (operatorOrOtherFunction == null) {
         return eval(brackettedPartOfExpression);
     }
-    else{
+    else {
         return String(eval(brackettedPartOfExpression) + operatorOrOtherFunction);
     }
 }
-function pi(operatorOrOtherFunction){
-    if(operatorOrOtherFunction == null){
-        return (22/7);
+function pi(operatorOrOtherFunction) {
+    if (operatorOrOtherFunction == null) {
+        return (22 / 7);
     }
-    else{
-        return String((22/7) + operatorOrOtherFunction);
+    else {
+        return String((22 / 7) + operatorOrOtherFunction);
     }
 }
 function randomInt(minNum, maxNum) {
