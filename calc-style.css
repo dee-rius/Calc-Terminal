@@ -80,22 +80,6 @@ label{
     flex-wrap: wrap;
 }
 
-textarea{
-    outline: none;
-    resize: none;
-    height: fit-content;
-    border-style: none;
-
-    padding: 0;
-    margin: 0;
-
-    flex-grow: 2;
-    field-sizing: content;
-    background-color: transparent;
-    color: var(--text-color);
-    font-family: "Fira Code", monospace;
-}
-
 button{
     background-color: transparent;
     border-style: none;
@@ -143,6 +127,27 @@ button::after{
     display: flex;
     gap: 2px;
     flex-wrap: wrap;
+}
+
+[name="manual-tip-text"]{
+    opacity: 0.8;
+}
+
+.expression-input{
+    outline: none;
+    resize: none;
+    height: fit-content;
+    border-style: none;
+
+    padding: 0;
+    margin: 0;
+
+    max-width: 100%;
+    flex-grow: 2;
+    field-sizing: content;
+    background-color: transparent;
+    color: var(--text-color);
+    font-family: "Fira Code", monospace;
 }
 
 .enter-anim{

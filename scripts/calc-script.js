@@ -126,7 +126,7 @@ function run(button) {
         newRunButton.textContent = "Run";
         newRunButton.addEventListener('click', () => { if (newRunButton.nextElementSibling.value != "") { run(newRunButton) } });
 
-        let newExpressionInput = document.createElement("textarea");
+        let newExpressionInput = document.createElement("input");
         newExpressionInput.name = "expression-input";
         newExpressionInput.classList.add(newExpressionInput.name);
         newExpressionInput.spellcheck = false;
