@@ -144,7 +144,6 @@ button::after{
 
     max-width: 100%;
     flex-grow: 2;
-    field-sizing: content;
     background-color: transparent;
     color: var(--text-color);
     font-family: "Fira Code", monospace;
