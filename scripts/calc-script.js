@@ -1,8 +1,10 @@
 const calcTerminalContainer = document.getElementById("calc-teminal-container");
 let runButtons = [];
-let expressionInputs = [];
 
+let expressionInputs = [];
 let outputValue = 0;
+
+let manualTipText = "For available functions, type: manual + num/operator/index/root/other or type help to see this again";
 
 const allFunctions = {
     numfunctions: [
@@ -80,7 +82,9 @@ function run(button) {
     expressionInputValue = expressionInputValue.split("").filter(char => prohibitedCharacters.includes(char) == false).join("");
 
     let outputTextLabel = document.createElement("label");
+    outputTextLabel.name = "output-text-label";
     let newExpressionLabel = document.createElement("label");
+    newExpressionLabel.name = "new-expression-label";
     newExpressionLabel.innerHTML = "< Expression >";
     createRunButtonAndExpressionInputFor(newExpressionLabel);
 
@@ -96,6 +100,10 @@ function run(button) {
             }
             else if (expressionInputValue == "clear") {
                 calcTerminalContainer.innerHTML = "";
+            }
+            else if (expressionInputValue == "help") {
+                //creates a new manual tip text and adds it to the container
+                setOutputValue(manualTipText);
             }
             else {
                 calcInputtedExpression();
@@ -118,7 +126,7 @@ function run(button) {
         newRunButton.textContent = "Run";
         newRunButton.addEventListener('click', () => { if (newRunButton.nextElementSibling.value != "") { run(newRunButton) } });
 
-        let newExpressionInput = document.createElement("input");
+        let newExpressionInput = document.createElement("textarea");
         newExpressionInput.name = "expression-input";
         newExpressionInput.classList.add(newExpressionInput.name);
         newExpressionInput.spellcheck = false;

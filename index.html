@@ -19,37 +19,16 @@
 <body>
     <div id="everything">
         <header>
-            <button id="show-functions" style="width: 100%; cursor: pointer;">Click To Hide Functions</button>
-            <div id="functions-dropdown" class="enter-anim">
-                <p name="function=tip">Clear: type "clear"</p>
-                <p name="function-tip">Calc functions: type "manual " + ("num" / "operator" / "index" / "root" / "other")</p>
-            </div>
+            <h1>Calc Terminal</h1>
             <hr style="border-color: var(--text-color);"/>
         </header>
         <main id="calc-teminal-container">
-            <label for="expression-input">< Expression ><button name="run-button" class="run-button">Run</button><input name="expression-input" spellcheck="false" type="text" placeholder="Type here..." class="expression-input"></input></label>
+            <p name="manual-tip-text" style="opacity: 0.8;">// For available functions, type: manual + num/operator/index/root/other or type help to see this again</p>
+            <label for="expression-input">< Expression ><button name="run-button" class="run-button">Run</button><textarea name="expression-input" spellcheck="false" type="text" placeholder="Type here..." class="expression-input"></textarea></label>
         </main>
     </div>
-    <script name="show-hide-functions-script">
-        const showFunctions = document.getElementById("show-functions");
-        const functionsDropdown = document.getElementById("functions-dropdown");
-
-        showFunctions.addEventListener("click", () => {
-            if(functionsDropdown.style.display == "none"){
-                functionsDropdown.classList.remove("exit-anim");
-                functionsDropdown.classList.add("enter-anim");
-                functionsDropdown.style.display = "flex";
-
-                showFunctions.textContent = "Click To Hide Functions";
-            }
-            else{
-                functionsDropdown.classList.add("enter-anim");
-                functionsDropdown.classList.add("exit-anim");
-
-                setTimeout(() => {functionsDropdown.style.display = "none"; showFunctions.textContent = "Click To Show Functions"}, 170);
-            }
-        });
+    <script name="show-hide-functions-script" src="scripts/manual-showing-and-hiding.js">
     </script>
-    <script src="calc-script.js" name="calc-input-script"></script>
+    <script name="calc-input-script" src="scripts/calc-script.js"></script>
 </body>
 </html>

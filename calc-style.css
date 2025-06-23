@@ -55,9 +55,13 @@ body{
     font-family: "Fira Code", monospace;
     font-size: smaller;
 }
-
+h1{
+    color: var(--text-color);
+}
 p{
     color: var(--text-color);
+    margin: 0;
+    padding: 0;
 }
 
 main{
@@ -72,20 +76,21 @@ label{
     color: var(--text-color);
     display: flex;
     gap: 5px;
-
+    
     flex-wrap: wrap;
 }
 
-input{
+textarea{
     outline: none;
+    resize: none;
+    height: fit-content;
     border-style: none;
 
     padding: 0;
     margin: 0;
 
-    max-width: 75%;
-    field-sizing: content;;
-
+    flex-grow: 2;
+    field-sizing: content;
     background-color: transparent;
     color: var(--text-color);
     font-family: "Fira Code", monospace;
@@ -94,6 +99,7 @@ input{
 button{
     background-color: transparent;
     border-style: none;
+    height: fit-content;
 
     cursor: pointer;
 
